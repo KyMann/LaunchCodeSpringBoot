@@ -80,39 +80,94 @@ What Just Happened?
 
 The app you just wrote, in OAuth2 terms, is a Client Application and it uses the authorization code grant to obtain an access token from Facebook (the Authorization Server). It then uses the access token to ask Facebook for some personal details (only what you permitted it to do), including your login ID and your name. In this phase facebook is acting as a Resource Server, decoding the token that you send and checking it gives the app permission to access the user’s details. If that process is successful the app inserts the user details into the Spring Security context so that you are authenticated.
 
+Part 2: Actuator
+----------------
 
-part 3: Override property values without changing the jar file.
-From the project directory execute:
-$ ./mvnw package
-$ java -jar target/property-file-0.0.1-SNAPSHOT.jar
-Go to http://localhost:8080 and make a note of the message you currently see.
-Stop the running application.
-Override the property in the file by using a command line argument:
-$ java -jar target/property-file-0.0.1-SNAPSHOT.jar --message='Hello from a command line arg!'
-Go to http://localhost:8080 and make a note of the message you currently see.
-Stop the running application.
-Override the property in the file by using an environment variable:
-$ MESSAGE='Hello from an environment variable!' java -jar target/property-file-0.0.1-SNAPSHOT.jar
-Go to http://localhost:8080 and make a note of the message you currently see.
-CONGRATULATIONS! You have learned how to override property values without changing the jar file.
+Remember earlier, when we selected dependencies for this project? We chose the Actuator and Actuator Docs dependencies. In this section, we’ll explore what Actuators are and how to use them.
+
+One thing that all applicaitons have in common is the need to monitor and manage them.
+
+### Actuator Endpoints
+
+Spring Boot includes a number of built-in actuator endpoints that enable you to montior and interact with your application. Most endpoints are exposed via HTTP although other methods are available.
+
+The most common endpoints are shown below:
+
+-   health - Lists application health information
+
+-   beans - Displays a list of all Spring Beans
+
+-   info - Displays arbitrary application information
+
+It’s important to note that not all endpoints are always on due to potential security concerns. Later on, we’ll change the behavior and enable endpoints.
+
+For a list of all of the available endpoints see this [link](http://docs.spring.io/spring-boot/docs/1.5.1.RELEASE/reference/htmlsingle/#production-ready-endpoints)
+
+1.  What happens when you go to your application’s /health endpoint in a browser? (e.g. [http://&lt;your](http://<your) application URL goes here&gt;/health)
+
+2.  What happens when you go to your application’s /docs endpoint?
+
+3.  What happens when you go to your application’s /info endpoint?
+
+4.  What happens when you go to your application’s /autoconfig endpoint?
+
+5.  What happens when you go to your application’s /beans endpoint?
+
+#### Unlocking Protected Endpoints
+
+In Spring Boot 1.5 and above, all actuator endpoints, with the exception of /health and /info are secured by default. Let’s make a change to our application to make the other endpoints visible.
+
+1.  Edit the application.properties file. It is located in the src/main/resources folder.
+
+2.  Add the following line to the file
+
+        endpoints.sensitive=false
+
+3.  Save the file
+
+4.  Build the application jar file
+
+    On a Mac run the following commands:
+
+        $ cd <location of your project>
+        $ ./gradlew clean build -x test
+
+    On Windows run the following commands
+
+<!-- -->
+
+    > cd <location of your project>
+    > gradlew clean build -x test
+
++ . Push the application to Pivotal Cloud Foundry
+
++
+
+    $ cf push
+
+Let’s hit a few of the endpoints that gave errors before.
+
+1.  What happens when you visit the /beans endpoint?
+
+2.  What happens when you visit the /autoconfig endpoint?
+
+Try a few more of the endpoints and become familiar with the type of information they provide. Note that the output is in JSON format so using a JSON pretty printer like [this](http://jsonprettyprint.com) one is very helpful to make the output more readible.
+
+#### Customize actuator behaviors
+
+Customize HealthIndicator()
+
+Part 3: Override property values without changing the jar file
+===================
+-   Traditional way: change properties file
+-   Change environement variables
+-   Change Java command line argument
+
 CHALLENGES
 Set both the environment variable and the command line argument and see what message you get.
-3. Override property values for different Spring environments.
-Open the project in STS (or any other IDE).
-Make sure you only have an application.properties file.
-Create, in src/main/resources/, a new file named application-production.properties with a message set to: Hello from prod config file!.
-Build and run the application:
-./mvnw package
-java -jar target/property-file-0.0.1-SNAPSHOT.jar
-Note the message you get.
-Now start the application with the production Spring active profile:
-SPRING_PROFILES_ACTIVE=production java -jar target/property-file-0.0.1-SNAPSHOT.jar
-CONGRATULATIONS! You have learned how to override property values using Spring active profiles.
-CHALLENGES
-Set both the environment variable and the production active profile and see what message you get.
-Use an application.yml with multiple properties in one file.
 
-Part 3: Running on Pivotal Cloud Foundry
+
+Part 4: Running on Pivotal Cloud Foundry
 ===================
 
 Now that the application has all the necessary features completed, it is time to push to Pivotal Cloud Foundry.
@@ -301,78 +356,7 @@ To make it easier to push updates to Pivotal Cloud Foundry, let’s create a man
 
 5.  Open a browser and navigate to the /persons URL to verify the applicaiton is working
 
-Part 4: Actuator
-----------------
 
-Remember earlier, when we selected dependencies for this project? We chose the Actuator and Actuator Docs dependencies. In this section, we’ll explore what Actuators are and how to use them.
-
-One thing that all applicaitons have in common is the need to monitor and manage them.
-
-### Actuator Endpoints
-
-Spring Boot includes a number of built-in actuator endpoints that enable you to montior and interact with your application. Most endpoints are exposed via HTTP although other methods are available.
-
-The most common endpoints are shown below:
-
--   health - Lists application health information
-
--   beans - Displays a list of all Spring Beans
-
--   info - Displays arbitrary application information
-
-It’s important to note that not all endpoints are always on due to potential security concerns. Later on, we’ll change the behavior and enable endpoints.
-
-For a list of all of the available endpoints see this [link](http://docs.spring.io/spring-boot/docs/1.5.1.RELEASE/reference/htmlsingle/#production-ready-endpoints)
-
-1.  What happens when you go to your application’s /health endpoint in a browser? (e.g. [http://&lt;your](http://<your) application URL goes here&gt;/health)
-
-2.  What happens when you go to your application’s /docs endpoint?
-
-3.  What happens when you go to your application’s /info endpoint?
-
-4.  What happens when you go to your application’s /autoconfig endpoint?
-
-5.  What happens when you go to your application’s /beans endpoint?
-
-#### Unlocking Protected Endpoints
-
-In Spring Boot 1.5 and above, all actuator endpoints, with the exception of /health and /info are secured by default. Let’s make a change to our application to make the other endpoints visible.
-
-1.  Edit the application.properties file. It is located in the src/main/resources folder.
-
-2.  Add the following line to the file
-
-        endpoints.sensitive=false
-
-3.  Save the file
-
-4.  Build the application jar file
-
-    On a Mac run the following commands:
-
-        $ cd <location of your project>
-        $ ./gradlew clean build -x test
-
-    On Windows run the following commands
-
-<!-- -->
-
-    > cd <location of your project>
-    > gradlew clean build -x test
-
-+ . Push the application to Pivotal Cloud Foundry
-
-+
-
-    $ cf push
-
-Let’s hit a few of the endpoints that gave errors before.
-
-1.  What happens when you visit the /beans endpoint?
-
-2.  What happens when you visit the /autoconfig endpoint?
-
-Try a few more of the endpoints and become familiar with the type of information they provide. Note that the output is in JSON format so using a JSON pretty printer like [this](http://jsonprettyprint.com) one is very helpful to make the output more readible.
 
 ### Actuator Integration with Pivotal Cloud Foundry
 
