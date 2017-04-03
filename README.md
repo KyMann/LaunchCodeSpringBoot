@@ -78,7 +78,38 @@ What Just Happened?
 
 The app you just wrote, in OAuth2 terms, is a Client Application and it uses the authorization code grant to obtain an access token from Facebook (the Authorization Server). It then uses the access token to ask Facebook for some personal details (only what you permitted it to do), including your login ID and your name. In this phase facebook is acting as a Resource Server, decoding the token that you send and checking it gives the app permission to access the user’s details. If that process is successful the app inserts the user details into the Spring Security context so that you are authenticated.
 
-Part 2: Running on Pivotal Cloud Foundry
+part 2: actuator
+part 3: . Override property values without changing the jar file.
+From the project directory execute:
+$ ./mvnw package
+$ java -jar target/property-file-0.0.1-SNAPSHOT.jar
+Go to http://localhost:8080 and make a note of the message you currently see.
+Stop the running application.
+Override the property in the file by using a command line argument:
+$ java -jar target/property-file-0.0.1-SNAPSHOT.jar --message='Hello from a command line arg!'
+Go to http://localhost:8080 and make a note of the message you currently see.
+Stop the running application.
+Override the property in the file by using an environment variable:
+$ MESSAGE='Hello from an environment variable!' java -jar target/property-file-0.0.1-SNAPSHOT.jar
+Go to http://localhost:8080 and make a note of the message you currently see.
+CONGRATULATIONS! You have learned how to override property values without changing the jar file.
+CHALLENGES
+Set both the environment variable and the command line argument and see what message you get.
+3. Override property values for different Spring environments.
+Open the project in STS (or any other IDE).
+Make sure you only have an application.properties file.
+Create, in src/main/resources/, a new file named application-production.properties with a message set to: Hello from prod config file!.
+Build and run the application:
+./mvnw package
+java -jar target/property-file-0.0.1-SNAPSHOT.jar
+Note the message you get.
+Now start the application with the production Spring active profile:
+SPRING_PROFILES_ACTIVE=production java -jar target/property-file-0.0.1-SNAPSHOT.jar
+CONGRATULATIONS! You have learned how to override property values using Spring active profiles.
+CHALLENGES
+Set both the environment variable and the production active profile and see what message you get.
+Use an application.yml with multiple properties in one file.
+Part 4: Running on Pivotal Cloud Foundry
 ===================
 
 Now that the application has all the necessary features completed, it is time to push to Pivotal Cloud Foundry.
