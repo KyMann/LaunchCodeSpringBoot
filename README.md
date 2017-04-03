@@ -1,5 +1,7 @@
 # LaunchCodeSpringBoot
 In this workshop, we will add [OAuth2](https://tools.ietf.org/html/rfc6749) to [the cheese mvc app](https://github.com/LaunchCodeEducation/cheese-mvc) and push it to Pivotal Cloud Foundry
+
+
 Prerequisites
 =============
 
