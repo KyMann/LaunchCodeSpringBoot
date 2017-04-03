@@ -80,8 +80,8 @@ What Just Happened?
 
 The app you just wrote, in OAuth2 terms, is a Client Application and it uses the authorization code grant to obtain an access token from Facebook (the Authorization Server). It then uses the access token to ask Facebook for some personal details (only what you permitted it to do), including your login ID and your name. In this phase facebook is acting as a Resource Server, decoding the token that you send and checking it gives the app permission to access the user’s details. If that process is successful the app inserts the user details into the Spring Security context so that you are authenticated.
 
-part 2: actuator
-part 3: . Override property values without changing the jar file.
+
+part 3: Override property values without changing the jar file.
 From the project directory execute:
 $ ./mvnw package
 $ java -jar target/property-file-0.0.1-SNAPSHOT.jar
@@ -111,7 +111,8 @@ CONGRATULATIONS! You have learned how to override property values using Spring a
 CHALLENGES
 Set both the environment variable and the production active profile and see what message you get.
 Use an application.yml with multiple properties in one file.
-Part 4: Running on Pivotal Cloud Foundry
+
+Part 3: Running on Pivotal Cloud Foundry
 ===================
 
 Now that the application has all the necessary features completed, it is time to push to Pivotal Cloud Foundry.
@@ -300,8 +301,7 @@ To make it easier to push updates to Pivotal Cloud Foundry, let’s create a man
 
 5.  Open a browser and navigate to the /persons URL to verify the applicaiton is working
 
-
-Part 8: Actuator
+Part 4: Actuator
 ----------------
 
 Remember earlier, when we selected dependencies for this project? We chose the Actuator and Actuator Docs dependencies. In this section, we’ll explore what Actuators are and how to use them.
@@ -572,5 +572,6 @@ Let’s make a few minor changes to our application to expose additional details
     Notice the additional entries for Git and Spring Boot information where you can view the JSON
 
     Note that currently some information is only shown if the Git information has been included.
+
 
 
