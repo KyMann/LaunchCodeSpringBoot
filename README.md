@@ -40,6 +40,7 @@ Securing the Application
 To make the application secure we just need to add Spring Security as a dependency. If we do that the default will be to secure it with HTTP Basic, so since we want to do a "social" login (delegate to Facebook), we add the Spring Security OAuth2 dependency as well:
 
 Add the following lines in build.gradle:
+
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.security.oauth:spring-security-oauth2')
 
@@ -57,8 +58,8 @@ and some configuration (converting application.properties to YAML for better rea
 
 application.yml
 
-security:
-  oauth2:
+    security:
+    oauth2:
     client:
       clientId: 233668646673605
       clientSecret: 33b17e044ee6a4fa383f46ec6e28ea1d
