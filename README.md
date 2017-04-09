@@ -47,6 +47,7 @@ Before we deploy to cloud foundry there are a few things that need to occur.
 4.  Follow the prompts, using the username & password you used to sign up PWS.
 
 5.  git clone the [bootifulApplication](https://github.com/jennymclaughlin/bootifulApplications)
+
         $ git clone https://github.com/jennymclaughlin/bootifulApplications	
 
 6.  Build the application jar file
@@ -108,9 +109,10 @@ Add the following dependencies in pom.xml:
 	</dependency>
 
 To make the link to Facebook we need an @EnableOAuth2Sso annotation on our main class:
-@SpringBootApplication
-@EnableOAuth2Sso
-public class ReservationServiceApplication {
+
+	@SpringBootApplication
+	@EnableOAuth2Sso
+	public class ReservationServiceApplication {
 
 and some configuration (using application.yml for better readability):
 
@@ -131,6 +133,4 @@ application.yml
       
 The configuration refers to a client app registered with Facebook in their [developers](https://developers.facebook.com/) site, in which you have to supply a registered redirect (home page) for the app. This one is registered to "localhost:8080" so it only works in an app running on that address.
 
-With that change you can run the app again and visit the cheese page at http://localhost:8080/cheese. Instead of the cheese page you should be redirected to login with Facebook. If you do that, and accept any authorizations you are asked to make, you will be redirected back to the local app and the cheese page will be visible. If you stay logged into Facebook, you won’t have to re-authenticate with this local app, even if you open it in a fresh browser with no cookies and no cached data. (That’s what Single Sign On means.)
-
-if you are working through this section with the sample application, be sure to clear your browser cache of cookies and HTTP Basic credentials.
+With that change you can run the app again and visit the page at http://localhost:8080/. you should be redirected to login with Facebook. If you do that, and accept any authorizations you are asked to make, you will be redirected back to the local app and the page will be visible. If you stay logged into Facebook, you won’t have to re-authenticate with this local app, even if you open it in a fresh browser with no cookies and no cached data. (That’s what Single Sign On means.) Be sure to clear your browser cache of cookies and HTTP Basic credentials.
