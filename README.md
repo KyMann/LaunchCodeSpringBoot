@@ -46,19 +46,22 @@ Before we deploy to cloud foundry there are a few things that need to occur.
 
 4.  Follow the prompts, using the username & password you used to sign up PWS.
 
-5.  Build the application jar file
+5.  git clone the [bootifulApplication](https://github.com/jennymclaughlin/bootifulApplications)
+        $ git clone https://github.com/jennymclaughlin/bootifulApplications	
 
-        $ cd <location of your project>
+6.  Build the application jar file
+
+        $ cd reservation-service
         $ mvn clean package
 
 
     This creates a self-contained Jar file that includes a tomcat servlet engine and all the necessary resources needed for this application.
 
-6.  Push the application using the following command line
+7.  Push the application using the following command line
 
         $ cf push reservation --random-route -p target/reservation-service-0.0.1-SNAPSHOT.jar
 
-7. Scale the application by changing the number of instances (scale out/in) or memory/disk space (scale up/down).
+8. Scale the application by changing the number of instances (scale out/in) or memory/disk space (scale up/down).
 	
 
 ### Actuator Endpoints
